@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:29:05 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/02/27 16:30:56 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:35:35 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int		main(int ac, char **av)
 {
-	check(ac, av);
+	if (check(ac, av) == 1)
+	{
+		msg_error("ERROR");
+	}
 	return (0);
 }

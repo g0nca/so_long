@@ -6,14 +6,13 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:29:09 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/02/27 16:01:37 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:36:04 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int    error()
+void    msg_error()
 {
-    perror("ERROR");
-    return (1);
+    write(1, "ERROR", 5);
 }
