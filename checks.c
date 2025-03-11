@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 15:46:59 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/11 12:56:15 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:34:32 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,27 +82,88 @@ int check_is_rectangular(char **av)
     close(fd);
     return (result);
 }
-int     walls_map(char **av)
+int walls_map_first_line(char *buffer, int  line_len)
 {
-    int     fd;
-    char    *path;
-    char    *buffer;
+    int i;
+
+    if (buffer[line_len - 1] == '\n')
+        line_len--;
+    i = 0;
+    while (i < line_len)
+    {
+        if (buffer[i] != '1')
+        {
+            free(buffer);
+            return (1);
+        }
+        i++;
+    }
+    return (0);
+}
+int walls_map_middle_line(char *buffer, int current_len, int fd)
+{ 
+    while (buffer)
+    {
+        current_len = ft_strlen(buffer);
+        if (buffer[current_len - 1] == '\n')
+            current_len--;
+        if (buffer[0] != '1' || buffer[current_len - 1] != '1')
+        {
+            free(buffer);
+            return (1);
+        }
+        free(buffer);
+        buffer = get_next_line(fd);
+    }
+    free(buffer);
+    return(0);
+}
+int walls_map2(int fd)
+{
+    char *buffer;
+    int line_len = 0;
+    int first_line;
+    int middle_line;
+    
+    buffer = get_next_line(fd);
+    line_len = ft_strlen(buffer);
+    first_line = walls_map_first_line(buffer, line_len);
+    if (first_line == 1)
+        return (1);
+    //n_lines = count_file_lines(fd);
+    middle_line = walls_map_middle_line(buffer, line_len, fd);
+    if (middle_line == 1)
+        return (1);
+    return (0);
+}
+
+int walls_map(char **av)
+{
+    int fd;
+    char *path;
+    char *buffer;
+    int result;
     
     path = directory_filename(av);
     fd = open(path, O_RDONLY);
     free(path);
     if (fd == -1)
         return (1);
-    buffer = get_next_line(fd);
-    while (buffer)
+    result = walls_map2(fd);
+    if (result == 1)
     {
-        printf("%s\n", buffer);
-        free(buffer);
         buffer = get_next_line(fd);
+        while (buffer)
+        {
+            free(buffer);
+            buffer = get_next_line(fd);
+        }
+        close(fd);
+        return (1);
     }
+    close(fd);
     return (0);
 }
-
 
 int     check_filename(char **av)
 {
