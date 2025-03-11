@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:27:35 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/11 09:59:14 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:46:55 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ typedef struct	s_data {
 
 int		main(int ac, char **av);
 
-int    check(int ac, char **av);
-int    check_filename(char **av);
-int     check_is_retangular(char **av);
+//------------>checks.c<-----------------
+int		check(int ac, char **av);
+int		check_filename(char **av);
+int		check_is_rectangular(char **av);
+int		is_map_rectangular(int fd, int *first_line_length);
+char     *directory_filename(char **av);
 
+int     walls_map(char **av);
 void    msg_error();
 
 char	**ft_split(char const *s, char c);

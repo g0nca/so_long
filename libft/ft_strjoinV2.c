@@ -6,36 +6,41 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:15:21 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/02/12 15:20:18 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/11 09:59:00 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_pipex(char const *s1, char const *s2)
+char	*ft_strjoinV2(char const *s1, char const *s2)
 {
 	char	*str1;
-	int		i;
-	int		j;
+	size_t	total_len;
+	size_t	i;
+	size_t	j;
 
-	i = 0;
-	j = 0;
-	str1 = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!s1 || !s2)
+		return (NULL);
+	total_len = ft_strlen(s1) + ft_strlen(s2);
+	str1 = malloc((total_len + 2) * sizeof(char));
 	if (!str1)
 		return (NULL);
-	while (s1[i] != '\0')
+	i = 0;
+	while (s1[i])
 	{
 		str1[i] = s1[i];
 		i++;
 	}
-	while (s2[j] != '\0')
-	{
-		str1[i + j] = s2[j];
-		j++;
-	}
-	str1[i + j] = '\0';
+	if (s1[i - 1] != '/')
+		str1[i++] = '/';
+
+	j = 0;
+	while (s2[j])
+		str1[i++] = s2[j++];
+	str1[i] = '\0';
 	return (str1);
 }
+
 /*
 int	main(void)
 {
