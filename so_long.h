@@ -6,83 +6,108 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:27:35 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/11 16:23:03 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:41:16 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 #define SO_LONG_H
+
+#include <X11/keysym.h>
+#include <X11/X.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include "minilibx-linux/mlx.h"
 #include "minilibx-linux/mlx_int.h"
 
-/*typedef struct s_game
-{
-    void        *mlx;       // Ponteiro MLX
-    void        *win;       // Janela MLX
-    t_map       map;        // Mapa do jogo
-    t_player    player;     // Info do player
-    int         collectibles; // Total de colecionáveis no mapa
-    void        *img_wall;  // Textura de parede
-    void        *img_floor; // Textura do chão
-    void        *img_player; // Textura do player
-    void        *img_exit;   // Textura da saída
-    void        *img_collect; // Textura do colecionável
-}               t_game;
-
-typedef struct s_player
-{
-    int x;       // Posição X (coluna)
-    int y;       // Posição Y (linha)
-    int moves;   // Contador de movimentos feitos
-    int items;   // Colecionáveis apanhados
-}               t_player;
-
 typedef struct s_map
 {
-    char    **matrix;      // Mapa lido linha a linha
-    int     width;         // Largura (número de colunas)
-    int     height;        // Altura (número de linhas)
-    int     player_count;  // Quantidade de 'P' encontrados
-    int     exit_count;    // Quantidade de 'E' encontrados
-    int     collect_count; // Quantidade de 'C' encontrados
-    int     player_x;      // Posição inicial do jogador X
-    int     player_y;      // Posição inicial do jogador Y
-}               t_map;
-*/
+	int		collectible;
+	int		wall;
+	int		player;
+	int		exit;
+	int		width;
+	int		height;
+	int		px;
+	int		py;
+	int		cc;
+	int		ec;
+	int		exitx;
+	int		exity;
+	char	**map;
+	char	**map_copy;
+	void	*wall_img;
+	void	*floor_img;
+	void	*player_img;
+	void	*collectible_img;
+	void	*exit_img;
+	void	*exitwin_img;
+	int		hei;
+	int		wid;
+	void	*mlx;
+	void	*mlx_win;
+	int		size;
+	int		moves;
+}								t_map;
 
+//  so_long.c
 int		main(int ac, char **av);
+void	setup_map(void);
 
-//------------>checks.c<-----------------
-int		check(int ac, char **av);
-int		check_filename(char **av);
-int		check_is_rectangular(char **av);
-int		is_map_rectangular(int fd, int *first_line_length);
+//	ft_check.c
+int	ft_check(char **argv);
+int	ft_checkmap(char **argv);
+char	**ft_mapcopy(char **argv);
+char	**ft_map(char **argv);
 
-int     walls_map(char **av);
-int     walls_map2(int  fd);
-int walls_map_first_line(char *buffer, int  line_len);
-int walls_map_middle_line(char *buffer, int current_len, int fd);
+//	ft_check2.c
+int	ft_countobjects(void);
+int	ft_checkwalls(void);
+int	ft_checkobjects(void);
+int	ft_checkwidth(void);
 
-void    msg_error();
-int     count_file_lines(int fd);
-char     *directory_filename(char **av);
+//	ft_check3.c
+int	ft_checkpath(int x, int y);
+void	ft_checkppos(void);
 
-char	**ft_split(char const *s, char c);
-void	*free_array(char **array);
-char	*if_null(char **array, int a);
-char	*save_words(const char *s, char c);
-int	count_words(char const *str, char c);
+//	startgame.c
+/*int	ft_startgame(void);
+int	ft_game_destroy(void);
+void	ft_showimg();
+void	ft_freemap(void);
+void	ft_putimg(char element, int x, int y);*/
 
-char	*get_next_line(int fd);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin_second(char *s1, char *s2, char *str1);
+//	utils.c
+void    ft_error(char *s);
+int	ft_checkber(char **argv);
+t_map *map(void);
 
-char	*ft_strjoinV2(char const *s1, char const *s2);
+
+//	libft
 size_t	ft_strlen(const char *s);
+void	ft_bzero(void *s, size_t n);
+void	*ft_memset(void *s, int c, size_t n);
+char	*ft_strdup(const char *s);
 
+//  get_next_line
+char	*get_next_line(int fd);
+char	*read_file(int fd, char *str);
+char	*extract_line(char *str);
+char	*newline(char *str);
 
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_second(char *s1, char *s2, char *str1);
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *str, int c);
+
+//  ft_printf
+int	ft_printf(const char *format, ...);
+int	ft_putchar(int c);
+int	ft_putnbr(int n);
+int	ft_putstr(char *str);
+int	ft_unsigned_int(unsigned int n);
+int	ft_pointeraddress(unsigned long p);
+int	ft_hexadecimal(unsigned long nbr, char str);
 
 #endif

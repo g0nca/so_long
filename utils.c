@@ -5,36 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 11:29:09 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/11 15:27:32 by ggomes-v         ###   ########.fr       */
+/*   Created: 2025/03/12 10:39:53 by ggomes-v          #+#    #+#             */
+/*   Updated: 2025/03/12 11:22:45 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void    msg_error()
+void    ft_error(char *s)
 {
-    write(1, "ERROR", 5);
+    ft_printf("ERROR:");
+    ft_printf(s);
+    exit(EXIT_FAILURE);
 }
-char     *directory_filename(char **av)
-{
-    char    *path;
 
-    path = ft_strjoinV2("./maps", av[1]);
-    return (path);
-}
-int     count_file_lines(int fd)
+int	ft_checkber(char **argv)
 {
-    char *buffer;
-    int i;
-    
-    i = 1;
-    buffer = get_next_line(fd);
-    while (buffer)
-    {
-        i++;
-        free(buffer);
-        buffer = get_next_line(fd);
-    }
-    return (i);
+	static int	a;
+	char		*str;
+	int			b;
+
+	str = ".ber";
+	while (argv[1][a])
+	{
+		b = 0;
+		while (argv[1][a] == str[b])
+		{
+			a++;
+			b++;
+			if (argv[1][a] == '\0' && str[b] == '\0')
+				return (1);
+			else if ((argv[1][a] == '\0' && str[b] != '\0')
+				|| (argv[1][a] != '\0' && str[b] == '\0'))
+				return (0);
+		}
+		a++;
+	}
+	return (0);
+}
+
+t_map *map(void)
+{
+	static t_map	map;
+
+	return (&map);
 }
