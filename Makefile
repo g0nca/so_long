@@ -6,7 +6,7 @@
 #    By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/13 13:11:58 by ggomes-v          #+#    #+#              #
-#    Updated: 2025/03/12 16:39:12 by ggomes-v         ###   ########.fr        #
+#    Updated: 2025/03/13 12:26:36 by ggomes-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = so_long.c\
 		ft_check2.c\
 		ft_check3.c\
 		startgame.c\
+		moves.c\
 		utils.c
 
 OBJ = $(SRC:.c=.o)

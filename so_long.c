@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:29:05 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/12 15:52:54 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:15:47 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ void	setup_map(void)
 int		main(int ac, char **av)
 {
 	if (ac != 2)
-		ft_error("Invalid Number of Arguments");
+		ft_error("Error\nInvalid Number of Arguments");
 	if (ft_checkber(av) == 0)
-		ft_error("Invalid file extension");
+		ft_error("Error\nInvalid file extension");
 	setup_map();
 	if (!ft_check(av))
 		ft_startgame();
+	ft_freemap();
 	return (0);
 }

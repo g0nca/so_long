@@ -6,11 +6,29 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 10:39:53 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/12 11:22:45 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:22:12 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	ft_freemap(void)
+{
+	int	i;
+	
+	i = 0;
+	while (i < map()->height)
+	{
+		if (map()->map)
+			free(map()->map[i]);
+		if (map()->map_copy)
+			free(map()->map_copy[i]);
+		i++;
+	}
+	free(map()->map);
+	if (map()->map_copy)
+		free(map()->map_copy);
+}
 
 void    ft_error(char *s)
 {

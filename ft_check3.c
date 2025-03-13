@@ -6,13 +6,13 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:54:52 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/12 14:53:56 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/13 10:43:52 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_checkpath(int x, int y)
+int	flood_fill(int x, int y)
 {
 	if (map()->map_copy[y][x] == '1' || map()->map_copy[y][x] == 'X')
 		return (1);
@@ -25,10 +25,10 @@ int	ft_checkpath(int x, int y)
 		return (0);
 	}
 	map()->map_copy[y][x] = 'X';
-	ft_checkpath(x + 1, y);
-	ft_checkpath(x - 1, y);
-	ft_checkpath(x, y + 1);
-	ft_checkpath(x, y - 1);
+	flood_fill(x + 1, y);
+	flood_fill(x - 1, y);
+	flood_fill(x, y + 1);
+	flood_fill(x, y - 1);
 	return (0);
 }
 

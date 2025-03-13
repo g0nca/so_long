@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:46:20 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/12 14:52:34 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:23:26 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	ft_check(char **argv)
 		if (!ft_countobjects() && !ft_checkwidth() && !ft_checkobjects())
 		{
 			ft_checkppos();
-			ft_checkpath(map()->px, map()->py);
+			flood_fill(map()->px, map()->py);
 			ft_printf("cc: %d\nec: %d\n", map()->cc, map()->ec);
 			ft_printf("collectible: %d\n", map()->collectible);
 			if (map()->ec != 1 || map()->cc != map()->collectible)

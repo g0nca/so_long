@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:27:35 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/12 16:41:16 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:05:14 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@
 #include <fcntl.h>
 #include "minilibx-linux/mlx.h"
 #include "minilibx-linux/mlx_int.h"
+
+#define KEY_ESC 65307
+#define KEY_W 119
+#define KEY_A 97
+#define KEY_S 115
+#define KEY_D 100
+
+#define WALL '1'
+#define FLOOR '0'
+#define COLLECTIBLE 'C'
+#define EXIT 'E'
+#define PLAYER 'P'
 
 typedef struct s_map
 {
@@ -68,20 +80,29 @@ int	ft_checkobjects(void);
 int	ft_checkwidth(void);
 
 //	ft_check3.c
-int	ft_checkpath(int x, int y);
+int	flood_fill(int x, int y);
 void	ft_checkppos(void);
 
 //	startgame.c
-/*int	ft_startgame(void);
+int	ft_startgame(void);
+void render_map();
 int	ft_game_destroy(void);
-void	ft_showimg();
-void	ft_freemap(void);
-void	ft_putimg(char element, int x, int y);*/
+void	render_pixel(char element, int x, int y);
+int	ft_keypress(int keysym);
+
+//	moves.c
+int	ft_checkmove(char a, int x, int y);
+void	ft_moved(void);
+void	ft_movea(void);
+void	ft_moves(void);
+void	ft_movew(void);
+void	is_collectible_exit(void);
 
 //	utils.c
 void    ft_error(char *s);
 int	ft_checkber(char **argv);
 t_map *map(void);
+void	ft_freemap(void);
 
 
 //	libft

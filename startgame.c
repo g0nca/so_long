@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:53:29 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/12 16:41:34 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:53:44 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,71 @@ int	ft_game_destroy(void)
 	ft_freemap();
 	exit(0);
 }
+void	render_pixel(char element, int x, int y)
+{
+	if (element == WALL)
+		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
+			map()->wall_img, x * map()->size, y * map()->size);
+	else if (element == FLOOR)
+		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
+			map()->floor_img, x * map()->size, y * map()->size);
+	else if (element == PLAYER)
+		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
+			map()->player_img, x * map()->size, y * map()->size);
+	else if (element == COLLECTIBLE)
+		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
+			map()->collectible_img, x * map()->size, y * map()->size);
+	else if (element == EXIT)
+		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
+			map()->exit_img, x * map()->size, y * map()->size);
+}
 
+void	render_map()
+{
+	int		i;
+	int		j;
+	char	element;
+
+	i = -1;
+	while (++i < map()->height)
+	{
+		j = -1;
+		while (++j < (map()->width + 1))
+		{
+			element = map()->map[i][j];
+			if (map()->map[i][j] == WALL)
+				render_pixel(element, j, i);
+			else if (map()->map[i][j] == FLOOR)
+				render_pixel(element, j, i);
+			else if (map()->map[i][j] == PLAYER)
+				render_pixel(element, j, i);
+			else if (map()->map[i][j] == COLLECTIBLE)
+				render_pixel(element, j, i);
+			else if (map()->map[i][j] == EXIT)
+				render_pixel(element, j, i);
+		}
+	}
+}
+int	ft_keypress(int keysym)
+{
+	if (keysym == KEY_ESC)
+		ft_game_destroy();
+	if (keysym == KEY_W)
+		ft_checkmove(keysym, map()->px, map()->py - 1);
+	if (keysym == KEY_S)
+		ft_checkmove(keysym, map()->px, map()->py + 1);
+	if (keysym == KEY_A)
+		ft_checkmove(keysym, map()->px - 1, map()->py);
+	if (keysym == KEY_D)
+		ft_checkmove(keysym, map()->px + 1, map()->py);
+	return (0);
+}
 int	ft_startgame(void)
 {
 	map()->mlx = mlx_init();
-	printf("Welcome to So Long!\n");
+	ft_printf("Welcome to So Long!\n");
 	map()->mlx_win = mlx_new_window(map()->mlx, ((map()->width) * map()->size),
-			(map()->height * map()->size), "Bananas Slave");
+			(map()->height * map()->size), "Game");
 	map()->wall_img = mlx_xpm_file_to_image(map()->mlx,
 			"./assets/wall.xpm", &map()->wid, &map()->hei);
 	map()->floor_img = mlx_xpm_file_to_image(map()->mlx,
@@ -45,7 +103,9 @@ int	ft_startgame(void)
 			&map()->wid, &map()->hei);
 	map()->exitwin_img = mlx_xpm_file_to_image(map()->mlx, "./assets/exit1.xpm",
 			&map()->wid, &map()->hei);
-	ft_showimg();
+	if (!map()->wall_img || !map()->floor_img || !map()->player_img)
+		return (ft_printf("Failed loading the images ...\n"), 1);
+	render_map();
 	mlx_hook(map()->mlx_win, KeyPress, KeyPressMask, &ft_keypress, map());
 	mlx_hook(map()->mlx_win, DestroyNotify,
 		ButtonPressMask, &ft_game_destroy, map());
