@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:29:05 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/13 16:15:47 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:33:17 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	setup_map(void)
 	map()->mlx = NULL;
 	map()->mlx_win = NULL;
 	map()->size = 64;
+	map()->side = 1;
 }
 
 int		main(int ac, char **av)

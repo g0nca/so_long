@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:53:29 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/13 14:53:44 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:39:21 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int	ft_game_destroy(void)
 {
 	mlx_destroy_image(map()->mlx, map()->wall_img);
-	mlx_destroy_image(map()->mlx, map()->player_img);
+	mlx_destroy_image(map()->mlx, map()->player_left);
+	mlx_destroy_image(map()->mlx, map()->player_right);	
 	mlx_destroy_image(map()->mlx, map()->collectible_img);
 	mlx_destroy_image(map()->mlx, map()->exit_img);
 	mlx_destroy_image(map()->mlx, map()->exitwin_img);
@@ -36,7 +37,7 @@ void	render_pixel(char element, int x, int y)
 			map()->floor_img, x * map()->size, y * map()->size);
 	else if (element == PLAYER)
 		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
-			map()->player_img, x * map()->size, y * map()->size);
+			map()->player_right, x * map()->size, y * map()->size);
 	else if (element == COLLECTIBLE)
 		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
 			map()->collectible_img, x * map()->size, y * map()->size);
@@ -85,27 +86,37 @@ int	ft_keypress(int keysym)
 		ft_checkmove(keysym, map()->px + 1, map()->py);
 	return (0);
 }
-int	ft_startgame(void)
+void	load_images(void)
 {
-	map()->mlx = mlx_init();
-	ft_printf("Welcome to So Long!\n");
 	map()->mlx_win = mlx_new_window(map()->mlx, ((map()->width) * map()->size),
 			(map()->height * map()->size), "Game");
 	map()->wall_img = mlx_xpm_file_to_image(map()->mlx,
 			"./assets/wall.xpm", &map()->wid, &map()->hei);
 	map()->floor_img = mlx_xpm_file_to_image(map()->mlx,
 			"./assets/floor.xpm", &map()->wid, &map()->hei);
-	map()->player_img = mlx_xpm_file_to_image(map()->mlx,
-			"./assets/player.xpm", &map()->wid, &map()->hei);
+	map()->player_right = mlx_xpm_file_to_image(map()->mlx,
+			"./assets/player_right.xpm", &map()->wid, &map()->hei);
+	map()->player_left = mlx_xpm_file_to_image(map()->mlx,
+			"./assets/player_left.xpm", &map()->wid, &map()->hei);
 	map()->collectible_img = mlx_xpm_file_to_image(map()->mlx,
 			"./assets/collectible.xpm", &map()->wid, &map()->hei);
 	map()->exit_img = mlx_xpm_file_to_image(map()->mlx, "./assets/exit.xpm",
 			&map()->wid, &map()->hei);
 	map()->exitwin_img = mlx_xpm_file_to_image(map()->mlx, "./assets/exit1.xpm",
 			&map()->wid, &map()->hei);
-	if (!map()->wall_img || !map()->floor_img || !map()->player_img)
+}
+int	ft_startgame(void)
+{
+	char	*moves_count;
+	
+	moves_count = ft_itoa(map()->moves);
+	map()->mlx = mlx_init();
+	ft_printf("Welcome to So Long!\n");
+	load_images();
+	if (!map()->wall_img || !map()->floor_img || !map()->player_left || !map()->player_right)
 		return (ft_printf("Failed loading the images ...\n"), 1);
 	render_map();
+	print_player_status();
 	mlx_hook(map()->mlx_win, KeyPress, KeyPressMask, &ft_keypress, map());
 	mlx_hook(map()->mlx_win, DestroyNotify,
 		ButtonPressMask, &ft_game_destroy, map());

@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:27:35 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/13 16:05:14 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:40:06 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ typedef struct s_map
 	char	**map_copy;
 	void	*wall_img;
 	void	*floor_img;
-	void	*player_img;
+	void	*player_right;
+	void	*player_left;
+	int		side;
 	void	*collectible_img;
 	void	*exit_img;
 	void	*exitwin_img;
@@ -89,6 +91,7 @@ void render_map();
 int	ft_game_destroy(void);
 void	render_pixel(char element, int x, int y);
 int	ft_keypress(int keysym);
+void	load_images(void);
 
 //	moves.c
 int	ft_checkmove(char a, int x, int y);
@@ -104,12 +107,15 @@ int	ft_checkber(char **argv);
 t_map *map(void);
 void	ft_freemap(void);
 
+//	bonus.c
+void    print_player_status(void);
 
 //	libft
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strdup(const char *s);
+char	*ft_itoa(int n);
 
 //  get_next_line
 char	*get_next_line(int fd);

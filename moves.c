@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:21:24 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/13 16:05:50 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:39:44 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,18 @@ void	ft_movew(void)
 	map()->py--;
 	is_collectible_exit();
 	map()->map[map()->py][map()->px] = PLAYER;
-	mlx_put_image_to_window(map()->mlx, map()->mlx_win,
-		map()->player_img, map()->px * map()->size, map()->py * map()->size);
+	if (map()->side == 1)
+	{
+		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
+			map()->player_right, map()->px * map()->size, map()->py * map()->size);
+	}
+	else
+	{
+		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
+			map()->player_left, map()->px * map()->size, map()->py * map()->size);
+	}
 	map()->moves++;
+	print_player_status();
 	ft_printf("Player Moves: %d\n", map()->moves);
 }
 
@@ -51,9 +60,18 @@ void	ft_moves(void)
 	map()->py++;
 	is_collectible_exit();
 	map()->map[map()->py][map()->px] = PLAYER;
-	mlx_put_image_to_window(map()->mlx, map()->mlx_win,
-		map()->player_img, map()->px * map()->size, map()->py * map()->size);
+	if (map()->side == 1)
+	{
+		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
+			map()->player_right, map()->px * map()->size, map()->py * map()->size);
+	}
+	else
+	{
+		mlx_put_image_to_window(map()->mlx, map()->mlx_win,
+			map()->player_left, map()->px * map()->size, map()->py * map()->size);
+	}
 	map()->moves++;
+	print_player_status();
 	ft_printf("Player Moves: %d\n", map()->moves);
 }
 
@@ -66,8 +84,10 @@ void	ft_movea(void)
 	is_collectible_exit();
 	map()->map[map()->py][map()->px] = PLAYER;
 	mlx_put_image_to_window(map()->mlx, map()->mlx_win,
-		map()->player_img, map()->px * map()->size, map()->py * map()->size);
+		map()->player_left, map()->px * map()->size, map()->py * map()->size);
+	map()->side = 0;
 	map()->moves++;
+	print_player_status();
 	ft_printf("Player Moves: %d\n", map()->moves);
 }
 
@@ -80,8 +100,10 @@ void	ft_moved(void)
 	is_collectible_exit();
 	map()->map[map()->py][map()->px] = PLAYER;
 	mlx_put_image_to_window(map()->mlx, map()->mlx_win,
-		map()->player_img, map()->px * map()->size, map()->py * map()->size);
+		map()->player_right, map()->px * map()->size, map()->py * map()->size);
+	map()->side = 1;
 	map()->moves++;
+	print_player_status();
 	ft_printf("Player Moves: %d\n", map()->moves);
 }
 
