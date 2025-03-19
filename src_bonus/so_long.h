@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:27:35 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/19 12:16:57 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:16:29 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,15 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include "inc/minilibx-linux/mlx.h"
-# include "inc/minilibx-linux/mlx_int.h"
-# include "inc/get_next_line/get_next_line.h"
-# include "inc/ft_printf/ft_printf.h"
-# include "inc/libft/libft.h"
+# include "../inc/minilibx-linux/mlx.h"
+# include "../inc/minilibx-linux/mlx_int.h"
 
 # define KEY_ESC 65307
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+
 # define WALL '1'
 # define FLOOR '0'
 # define COLLECTIBLE 'C'
@@ -54,8 +52,11 @@ typedef struct s_map
 	void	*wall_img;
 	void	*floor_img;
 	void	*player_right;
+	void	*player_left;
+	int		side;
 	void	*collectible_img;
 	void	*exit_img;
+	void	*exitwin_img;
 	int		hei;
 	int		wid;
 	void	*mlx;
@@ -91,6 +92,9 @@ int		ft_game_destroy(void);
 void	render_pixel(char element, int x, int y);
 int		ft_keypress(int keysym);
 
+//	load_images.c
+void	load_images(void);
+
 //	moves.c
 int		ft_checkmove(char a, int x, int y);
 void	ft_moved(void);
@@ -98,14 +102,14 @@ void	ft_movea(void);
 void	ft_moves(void);
 void	ft_movew(void);
 
-//	load_images.c
-void	load_images(void);
-
 //	utils.c
 void	ft_error(char *s);
 int		ft_checkber(char **argv);
 t_map	*map(void);
 void	ft_freemap(void);
+
+//	bonus.c
+void	print_player_status(void);
 void	is_collectible_exit(void);
 
 //	libft
@@ -115,6 +119,17 @@ void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strdup(const char *s);
 char	*ft_itoa(int n);
 
+//  get_next_line
+char	*get_next_line(int fd);
+char	*read_file(int fd, char *str);
+char	*extract_line(char *str);
+char	*newline(char *str);
+
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_second(char *s1, char *s2, char *str1);
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *str, int c);
+
 //  ft_printf
 int		ft_printf(const char *format, ...);
 int		ft_putchar(int c);
@@ -123,5 +138,4 @@ int		ft_putstr(char *str);
 int		ft_unsigned_int(unsigned int n);
 int		ft_pointeraddress(unsigned long p);
 int		ft_hexadecimal(unsigned long nbr, char str);
-
 #endif

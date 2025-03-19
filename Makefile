@@ -6,100 +6,93 @@
 #    By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/13 13:11:58 by ggomes-v          #+#    #+#              #
-#    Updated: 2025/03/18 11:40:20 by ggomes-v         ###   ########.fr        #
+#    Updated: 2025/03/19 13:16:49 by ggomes-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# A saida padrao e de erro nao sao mostradas | > /dev/null 2>&1
+# Compilador e flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./libft -I./minilibx-linux -I./get_next_line
-LIBFT = ./libft/libft.a
-GNL = ./get_next_line/get_next_line.a
-FT_PRINTF = ./ft_printf/libftprintf.a
-MLX = ./minilibx-linux/libmlx.a
+CFLAGS = -Wall -Wextra -Werror
+
+# Diretórios
+SRCDIR = src
+BONUSDIR = src_bonus
+LIBFTDIR = inc/libft
+PRINTF_DIR = inc/ft_printf
+GNL_DIR = inc/get_next_line
+MLX_DIR = inc/minilibx-linux
+MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_INCLUDE = -I$(MLX_DIR)
+
+# Arquivos de so_long
+SRCS = src/so_long.c src/ft_check.c src/ft_check2.c src/ft_check3.c src/startgame.c\
+		src/moves.c src/load_images.c src/utils.c
+OBJS = $(SRCS:.c=.o)
+
+# Arquivos de so_long_bonus (MANUALMENTE)
+BONUS_SRCS = src_bonus/ft_check.c src_bonus/ft_check2.c src_bonus/ft_check3.c\
+				src_bonus/startgame.c src_bonus/moves.c src_bonus/utils.c\
+				src_bonus/bonus.c src_bonus/load_images.c src_bonus/so_long_bonus.c
+
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+
+# Bibliotecas
+LIBFT = $(LIBFTDIR)/libft.a
+PRINTF = $(PRINTF_DIR)/libftprintf.a
+GNL = $(GNL_DIR)/get_next_line.a
+MLX = $(MLX_DIR)/libmlx.a
+
+# Nome dos executáveis
 NAME = so_long
+BONUS_NAME = so_long_bonus
 
-SRC = so_long.c\
-		ft_check.c\
-		ft_check2.c\
-		ft_check3.c\
-		startgame.c\
-		moves.c\
-		bonus.c\
-		utils.c
-
-NAME_BONUS = so_long_bonus
-OBJS_BONUS = $(SRC_BONUS:.c=.o)
-SRC_BONUS = so_long_bonus/ft_check.c\
-				so_long_bonus/ft_check2.c\
-				so_long_bonus/ft_check3.c\
-				so_long_bonus/startgame.c\
-				so_long_bonus/moves.c\
-				so_long_bonus/utils.c\
-				so_long_bonus/bonus.c
-
-OBJ = $(SRC:.c=.o)
-
-# Regras
+# 🛠 **Regra padrão: compila apenas so_long**
 all: $(NAME)
-$(NAME): $(OBJ) $(LIBFT) $(GNL) $(FT_PRINTF) $(MLX)
-	$(CC) $(OBJ) $(GNL) $(FT_PRINTF) $(LIBFT) -L./minilibx-linux -lmlx -lX11 -lXext -lm -o $(NAME)
-	@echo "	╔═════════════════════════════════════╗"
-	@echo "	║ ✅ |${GREEN}All Files Compiled${RESET}              ║"
-	@echo "	╚═════════════════════════════════════╝"
 
-%.o: %.c
-	@echo "${GREEN}${BOLD}✅ | Compiling $<...${RESET}"
-	@$(CC) $(CFLAGS) -I./ft_printf -I./get_next_line -I./libft -I./minilibx-linux -c $< -o $@
+# Compilar so_long (NORMAL)
+$(NAME): $(OBJS) $(LIBFT) $(PRINTF) $(GNL) $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(MLX_DIR) -lmlx -lX11 -lXext -lm $(LIBFT) $(PRINTF) $(GNL)
 
+# Compilar so_long_bonus SOMENTE quando `make bonus` for chamado
+bonus: $(BONUS_OBJS) $(LIBFT) $(PRINTF) $(GNL) $(MLX_LIB)
+	$(CC) $(CFLAGS) $(MLX_INCLUDE) -o $(BONUS_NAME) $(BONUS_OBJS) -L$(MLX_DIR) -lmlx -lX11 -lXext -lm $(LIBFT) $(PRINTF) $(GNL)
+
+# Regras para compilar cada .c em .o (sem wildcard)
+src/%.o: src/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+so_long_bonus_path/%.o: so_long_bonus_path/%.c
+	$(CC) $(CFLAGS) $(MLX_INCLUDE) -c $< -o $@
+
+# Criar as bibliotecas (libft, ft_printf, get_next_line)
 $(LIBFT):
-	@make -C ./libft > /dev/null 2>&1
+	make -C $(LIBFTDIR)
 
-$(FT_PRINTF):
-	@make -C ./ft_printf > /dev/null 2>&1
+$(PRINTF):
+	make -C $(PRINTF_DIR)
 
 $(GNL):
-	@make -C ./get_next_line > /dev/null 2>&1
+	make -C $(GNL_DIR)
 
 $(MLX):
-	@make -C ./minilibx-linux > /dev/null 2>&1
+	make -C $(MLX_DIR)
 
-bonus: $(NAME_BONUS)
-$(NAME_BONUS): $(OBJS_BONUS) $(LIBFT) $(GNL) $(FT_PRINTF) $(MLX)
-	$(CC) $(OBJS_BONUS) $(GNL) $(FT_PRINTF) $(LIBFT) -L./minilibx-linux -lmlx -lX11 -lXext -lm -o $(NAME)
-	@echo "	╔═════════════════════════════════════╗"
-	@echo "	║ ✅ |${GREEN}All Files Compiled${RESET}              ║"
-	@echo "	╚═════════════════════════════════════╝"
-
-%.o: %.c
-	@echo "${GREEN}${BOLD}✅ | Compiling $<...${RESET}"
-	@$(CC) $(CFLAGS) -I./ft_printf -I./get_next_line -I./libft -I./minilibx-linux -c $< -o $@
-
-
+# Limpeza
 clean:
-	@rm -rf $(OBJ)
-	@rm -rf $(OBJS_BONUS)
-	@make clean -C ./libft > /dev/null 2>&1
-	@make clean -C ./ft_printf > /dev/null 2>&1
-	@make clean -C ./get_next_line > /dev/null 2>&1
-	@make clean -C ./minilibx-linux > /dev/null 2>&1
-	@echo "	╔═════════════════════════════════════╗"
-	@echo "	║ 🗑️  |${BOLD}Cleaned Successfully!${RESET}           ║"
-	@echo "	╚═════════════════════════════════════╝"
+	rm -f $(OBJS) $(BONUS_OBJS)
+	make -C $(LIBFTDIR) clean
+	make -C $(PRINTF_DIR) clean
+	make -C $(GNL_DIR) clean
 
 fclean: clean
-	@rm -rf $(NAME)
-	@rm -rf $(NAME_BONUS)
-	@make fclean -C ./libft > /dev/null 2>&1
-	@make fclean -C ./ft_printf > /dev/null 2>&1
-	@make fclean -C ./get_next_line > /dev/null 2>&1
-	@make clean -C ./minilibx-linux > /dev/null 2>&1
-	@echo "	╔═════════════════════════════════════╗"
-	@echo "	║ 🗑️  |${CYAN}Full Clean Done!${RESET}                ║"
-	@echo "	╚═════════════════════════════════════╝"
+	rm -f $(NAME) so_long_bonus/$(BONUS_NAME)
+	rm -f $(BONUS_NAME)
+	make -C $(LIBFTDIR) fclean
+	make -C $(PRINTF_DIR) fclean
+	make -C $(GNL_DIR) fclean
 
 re: fclean all
-.PHONY: all clean fclean re
+
 
 RESET = \033[0m
 BOLD = \033[1m
