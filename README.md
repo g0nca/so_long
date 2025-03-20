@@ -48,11 +48,11 @@ To prevent **memory leaks**, ensure proper deallocation in these scenarios:
 |------------|-----------|
 | Player_Right     | ![Image](https://github.com/user-attachments/assets/f438095f-25f3-4076-8c4f-76a41a25f93b) |
 | Player_Left     | ![Image](https://github.com/user-attachments/assets/45fda2dd-420e-44ef-b252-d68036f96cf0) |
-| Collectible | ![Image](https://github.com/user-attachments/assets/ed2da34b-9b2e-4cba-8eee-59229cbd20c1) |
+| Floor | ![Image](https://github.com/user-attachments/assets/ed2da34b-9b2e-4cba-8eee-59229cbd20c1) |
 | Wall       | ![Image](https://github.com/user-attachments/assets/6e953b1e-46df-41a0-98d9-209c62d35f37) |
-| Floor      | ![Image](https://github.com/user-attachments/assets/3ba3aad0-eff6-44c4-b05a-f7a139aca843)|
+| Exit_Bonus      | ![Image](https://github.com/user-attachments/assets/3ba3aad0-eff6-44c4-b05a-f7a139aca843)|
 | Exit       | ![Image](https://github.com/user-attachments/assets/a8237abd-fba1-463d-940e-767cda58cb38) |
-| Exit1       | ![Image](https://github.com/user-attachments/assets/5718d754-9134-430f-b446-1388335da071) |
+| Collectible       | ![Image](https://github.com/user-attachments/assets/5718d754-9134-430f-b446-1388335da071) |
 
 
 ![Image](https://github.com/user-attachments/assets/f438095f-25f3-4076-8c4f-76a41a25f93b)
