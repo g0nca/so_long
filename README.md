@@ -45,14 +45,11 @@ To prevent **memory leaks**, ensure proper deallocation in these scenarios:
 
 ## 🎨 Game Assets
 <p align="center">
-
+   
 | Player_Right | Player_Left | Floor | Wall | Exit_Bonus | Exit | Collectible |
 |-------------|------------|-------|------|------------|------|-------------|
 | <p align="center">![Image](https://github.com/user-attachments/assets/f438095f-25f3-4076-8c4f-76a41a25f93b)</p> | <p align="center">![Image](https://github.com/user-attachments/assets/45fda2dd-420e-44ef-b252-d68036f96cf0)</p> | <p align="center">![Image](https://github.com/user-attachments/assets/ed2da34b-9b2e-4cba-8eee-59229cbd20c1)</p> | <p align="center">![Image](https://github.com/user-attachments/assets/6e953b1e-46df-41a0-98d9-209c62d35f37)</p> | <p align="center">![Image](https://github.com/user-attachments/assets/3ba3aad0-eff6-44c4-b05a-f7a139aca843)</p> | <p align="center">![Image](https://github.com/user-attachments/assets/a8237abd-fba1-463d-940e-767cda58cb38)</p> | <p align="center">![Image](https://github.com/user-attachments/assets/5718d754-9134-430f-b446-1388335da071)</p> |
-
 </p>
-
-
 
 
 
