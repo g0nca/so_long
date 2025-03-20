@@ -6,7 +6,7 @@
 /*   By: ggomes-v <ggomes-v@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:54:52 by ggomes-v          #+#    #+#             */
-/*   Updated: 2025/03/19 12:08:08 by ggomes-v         ###   ########.fr       */
+/*   Updated: 2025/03/20 10:25:33 by ggomes-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	flood_fill(int x, int y)
 		map()->cc++;
 	if (map()->map_copy[y][x] == 'E')
 	{
-		if (map()->cc == map()->collectible)
-			map()->ec++;
-		return (0);
+		map()->ec++;
+		map()->map_copy[y][x] = 'X';
+		return (1);
 	}
 	map()->map_copy[y][x] = 'X';
 	flood_fill(x + 1, y);
