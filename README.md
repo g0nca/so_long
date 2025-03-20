@@ -1,0 +1,57 @@
+# 📌 so_long
+
+## 📝 Description
+**so_long** is a simple 2D game written in **C**, using the **MiniLibX** graphical library. The goal is to implement a basic game where the player moves through a map, collecting items and reaching the exit while avoiding obstacles. The project focuses on understanding event handling, graphics rendering, and memory management.
+
+## 🔄 Map Parsing
+To correctly parse the map and the `.ber` file, follow these steps:
+
+1. **Read the Map File**: Open and read the `.ber` file, ensuring it follows the correct format.
+2. **Validate the Map**:
+   - Ensure all rows have the same length.
+   - Check that the map is surrounded by walls (`1` characters).
+   - Ensure there is at least **one player (`P`), one exit (`E`), and one collectible (`C`)**.
+3. **Store the Map Data**:
+   - Convert the file content into a **2D array** for easy processing.
+4. **Render the Map**:
+   - Load assets and display the game grid with appropriate textures for walls, floor, collectibles, player, and exit.
+
+## 🎮 Controls
+The game accepts the following controls for movement:
+
+| Key  | Action        |
+|------|--------------|
+| `W`  | Move Up      |
+| `A`  | Move Left    |
+| `S`  | Move Down    |
+| `D`  | Move Right   |
+| `ESC`| Close Game   |
+
+Additionally, the **ESC key** should correctly exit the game, freeing all allocated memory.
+
+## 🏃 Character Movement
+- The player **moves smoothly** by updating pixel positions in the game window.
+- Movements are triggered via keyboard inputs (`WASD`).
+- Collision detection ensures the player cannot walk through walls.
+
+## 🛠️ Memory Management
+To prevent **memory leaks**, ensure proper deallocation in these scenarios:
+
+✔ **When the game ends normally**
+✔ **When the player presses ESC**
+✔ **When the player clicks the close window button (cross icon)**
+
+🚨 **It is expected that the game will cause a memory leak when interrupted using** `CTRL+C` **(this is intentional behavior).**
+
+## 🎨 Game Assets
+| Asset Type  | File Path |
+|------------|-----------|
+| Player     | `assets/player.xpm` |
+| Collectible | `assets/collectible.xpm` |
+| Wall       | `assets/wall.xpm` |
+| Floor      | `assets/floor.xpm` |
+| Exit       | `assets/exit.xpm` |
+
+## 🎥 Gameplay GIF
+[Click here to view the game in action](#) *(Replace with the actual GIF link when available).*
+
